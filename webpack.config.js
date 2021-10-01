@@ -6,7 +6,7 @@ module.exports = {
   entry: './src/index.js',
   devServer: {
 
-    contentBase: './dist',
+    static: './dist',
 
   },
   plugins: [

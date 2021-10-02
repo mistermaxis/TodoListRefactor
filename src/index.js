@@ -1,13 +1,15 @@
-import _ from 'lodash';
 import './style.css';
+import HTMLManager from './html';
+import StorageManager from './storage';
 
-function component() {
-  const element = document.createElement('div');
+let list = [];
 
-  // Lodash, currently included via a script, is required for this line to work
-  element.innerHTML = _.join(['Hello', 'webpack'], ' ');
+const root = document.getElementById('root');
 
-  return element;
-}
+const html = new HTMLManager();
 
-document.body.appendChild(component());
+const storage = new StorageManager();
+
+list = storage.load();
+
+html.display(list, root);

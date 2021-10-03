@@ -9,7 +9,7 @@ class InputManager {
     #handleInput(event, data) {
         const text = event.currentTarget.value;
 
-        if (event.key === 'Enter') {
+        if (event.key === 'Enter' || event.charCode === 13) {
             if (text.length > 0) {
                 const newItem = {
                     description: text,

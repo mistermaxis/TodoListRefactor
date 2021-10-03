@@ -18,6 +18,9 @@ class HTMLManager {
     }
 
     generateList() {
+
+        this.#itemList.innerHTML = '';
+
         if (this.#items && this.#items.length > 0) {
 
             this.#items.forEach(task => {
@@ -26,13 +29,11 @@ class HTMLManager {
             return this.#itemList;
         }
         else {
-            const emptyList = document.createElement('div');
-            emptyList.classList.add('empty-message');
             const message = document.createElement('p');
             message.classList.add('empty-text');
             message.innerText = 'No tasks have been added';
-            emptyList.appendChild(message);
-            return emptyList;
+            this.#itemList.appendChild(message);
+            return this.#itemList;
         }
     }
 

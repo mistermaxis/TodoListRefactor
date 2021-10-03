@@ -1,5 +1,4 @@
 class StorageManager {
-
     #storage;
 
     constructor() {

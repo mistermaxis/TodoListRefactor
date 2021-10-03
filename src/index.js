@@ -1,15 +1,5 @@
-import './style.css';
-import HTMLManager from './html';
-import StorageManager from './storage';
+import TodoList from "./todo";
 
-let list = [];
+const listApp = new TodoList();
 
-const root = document.getElementById('root');
-
-const html = new HTMLManager();
-
-const storage = new StorageManager();
-
-list = storage.load();
-
-html.display(list, root);
+listApp.init();

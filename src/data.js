@@ -1,8 +1,8 @@
 class DataManager {
     #list;
-    
+
     constructor(storage) {
-        this.#list = storage;
+        this.#list = storage || [];
     }
 
     add(item) {

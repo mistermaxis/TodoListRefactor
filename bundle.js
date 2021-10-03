@@ -106,7 +106,7 @@ eval("\n\n/* istanbul ignore next  */\nfunction styleTagTransform(css, style) {\
   \*********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\nclass DataManager {\n    #list;\n    \n    constructor(storage) {\n        this.#list = storage;\n    }\n\n    add(item) {\n        this.#list.push(item);\n        console.log(this.#list);\n    }\n\n    remove (idx) {\n        this.#list = this.#list.filter((item, index) => idx !== index);\n    }\n\n    get list() {\n        return this.#list;\n    }\n}\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (DataManager);\n\n//# sourceURL=webpack://webpackproject/./src/data.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\nclass DataManager {\n    #list;\n\n    constructor(storage) {\n        this.#list = storage || [];\n    }\n\n    add(item) {\n        this.#list.push(item);\n        console.log(this.#list);\n    }\n\n    remove (idx) {\n        this.#list = this.#list.filter((item, index) => idx !== index);\n    }\n\n    get list() {\n        return this.#list;\n    }\n}\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (DataManager);\n\n//# sourceURL=webpack://webpackproject/./src/data.js?");
 
 /***/ }),
 

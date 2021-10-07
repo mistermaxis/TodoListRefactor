@@ -6,9 +6,11 @@ class InputManager {
         this.#add = document.createElement('input');
         this.#add.type = 'text';
         this.#add.placeholder = 'Add a task';
+        this.#add.classList.add('add-text');
 
         this.#clear = document.createElement('button');
         this.#clear.innerText = 'Clear Completed';
+        this.#clear.classList.add('clear-button');
     }
     
     get addInput() {

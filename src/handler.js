@@ -5,6 +5,7 @@ class HandlerFunctions {
     #storage;
     #data;
     #itemList;
+    #empty;
     #input;
 
     constructor(itemlist, input) {
@@ -12,13 +13,34 @@ class HandlerFunctions {
         this.#data = new DataManager(this.#storage.load());
         this.#itemList = itemlist;
         this.#input = input;
+
+        this.#empty = document.createElement('div');
+        this.#empty.classList.add('item');
+        const message = document.createElement('span');
+        message.classList.add('empty-text');
+        message.innerText = 'No tasks have been added';
+        
+        this.#empty.appendChild(message);
         
         this.#input.addInput.addEventListener('keyup', (e) => this.handleTextInput(e));
     }
 
     generateTask(task) {
         const todoItem = document.createElement('div');
+
         todoItem.classList.add('item');
+
+        if (task.animation !== '') {
+            todoItem.classList.add(task.animation);
+        }
+        
+        todoItem.addEventListener('animationend', () => {
+            todoItem.classList.remove('animation-add');
+        })
+
+        task.animation = '';
+
+        this.#storage.save(this.#data.list);
         
         const description = document.createElement('span');
         description.innerText = task.description;
@@ -34,25 +56,33 @@ class HandlerFunctions {
     }
 
     updateTasks() {
-        this.#itemList.innerHTML = '';
-
         if (this.#data.list && this.#data.list.length > 0) {
+            const listChildren = this.#itemList.children;
 
-            this.#data.list.forEach(task => {
+            if (listChildren.length > 0 && listChildren[0] === this.#empty) {
+                this.#empty.classList.remove('animation-add');
+                this.#empty.classList.add('animation-remove');
+
+                setTimeout(() => {
+                    this.#itemList.innerHTML = '';
+                    this.#data.list.forEach(task => {
+                    this.generateTask(task);
+                    });
+                }, 500);
+            }
+            else {
+                this.#itemList.innerHTML = '';
+                this.#data.list.forEach(task => {
                 this.generateTask(task);
-            });
+                });
+            }
         }
         else {
-            const emptyListMessage = document.createElement('div');
-            emptyListMessage.classList.add('animation-add');
-
-            const message = document.createElement('span');
-            message.classList.add('empty-text');
-            message.innerText = 'No tasks have been added';
-            
-            emptyListMessage.appendChild(message);
-            this.#itemList.appendChild(emptyListMessage);
-       }
+            this.#itemList.innerHTML = '';
+            this.#empty.classList.remove('animation-remove');
+            this.#empty.classList.add('animation-add');
+            this.#itemList.appendChild(this.#empty);
+        }
     }
 
     handleTextInput(event) {
@@ -62,7 +92,8 @@ class HandlerFunctions {
             if (text.value.length > 0) {
                 const newItem = {
                     description: text.value,
-                    completed: false
+                    completed: false,
+                    animation: 'animation-add',
                 }
                
                 text.value = '';

@@ -1,37 +1,31 @@
 class InputManager {
-    #data;
-    #task;
-    constructor(data, task) {
-        this.#data = data;
-        this.#task = task;
+    #add;
+    #clear;
+    
+    constructor() {
+        this.#add = document.createElement('input');
+        this.#add.type = 'text';
+        this.#add.placeholder = 'Add a task';
+
+        this.#clear = document.createElement('button');
+        this.#clear.innerText = 'Clear Completed';
+    }
+    
+    get addInput() {
+        return this.#add;
     }
 
-    #handleInput(event, data) {
-        const text = event.currentTarget.value;
-
-        if (event.key === 'Enter' || event.charCode === 13) {
-            if (text.length > 0) {
-                const newItem = {
-                    description: text,
-                    completed: false
-                }
-                data.add(newItem);
-                this.#task.generateTask(newItem);
-            }
-        }
+    get clearButton() {
+        return this.#clear;
     }
 
-    generateInput() {
-        const input = document.createElement('input');
-        input.type = 'text';
+    get removeButton() {
+        const remove = document.createElement('button');
+        remove.type = 'button';
+        remove.innerText = 'remove';
+        remove.classList.add('remove-button');
 
-        input.addEventListener('keyup', (e) => this.#handleInput(e, this.#data));
-
-        return input;
-    }
-
-    generateClear() {
-
+        return remove;
     }
 }
 

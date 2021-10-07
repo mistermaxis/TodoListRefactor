@@ -1,23 +1,16 @@
 import './style.css';
-import HTMLManager from './html';
-import StorageManager from './storage';
-import DataManager from './data';
+import DisplayManager from './display';
 
 class TodoList {
-    #root;
-    #storage;
-    #data;
-    #html;
+    #displayManager;
 
     constructor() {
-        this.#root = document.getElementById('root');
-        this.#storage = new StorageManager();
-        this.#data = new DataManager(this.#storage.load());
-        this.#html = new HTMLManager(this.#data, this.#root);
+        
+        this.#displayManager = new DisplayManager();
     }
 
     init() {
-        this.#html.display();
+        this.#displayManager.display();
     }
 }
 

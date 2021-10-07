@@ -1,52 +1,32 @@
+import ListManager from "./list";
 import InputManager from "./input";
-import Task from "./task";
 
 class HTMLManager {
+    #list;
     #input;
-    #root;
-    #items;
     #itemList;
-    #task;
 
-    constructor(data, root) {
-        this.#root = root;
-        this.#items = data.list;
+    constructor() {
         this.#itemList = document.createElement('div');
         this.#itemList.classList.add('item-list');
-        this.#task = new Task(this.#itemList);
-        this.#input = new InputManager(data, this.#task);
+
+        this.#input = new InputManager();
+
+        this.#list = new ListManager(this.#itemList, this.#input);
+
+        this.#list.update();
     }
 
-    generateList() {
-
-        this.#itemList.innerHTML = '';
-
-        if (this.#items && this.#items.length > 0) {
-
-            this.#items.forEach(task => {
-                this.#task.generateTask(task);
-            });
-            return this.#itemList;
-        }
-        else {
-            const message = document.createElement('p');
-            message.classList.add('empty-text');
-            message.innerText = 'No tasks have been added';
-            this.#itemList.appendChild(message);
-            return this.#itemList;
-        }
+    get textInput() {
+        return this.#input.addInput;
+    }
+   
+    get itemList () {
+        return this.#itemList;
     }
 
-    generateClearButton() {
-        const button = document.createElement('button');
-        button.innerText = 'Clear Completed';
-        return button;
-    }
-
-    display() {
-        this.#root.appendChild(this.#input.generateInput());
-        this.#root.appendChild(this.generateList());
-        this.#root.appendChild(this.generateClearButton());
+    get clearAllButton() {
+        return this.#input.clearButton;
     }
 }
 

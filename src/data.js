@@ -7,11 +7,14 @@ class DataManager {
 
     add(item) {
         this.#list.push(item);
-        console.log(this.#list);
     }
 
-    remove (idx) {
+    remove(idx) {
         this.#list = this.#list.filter((item, index) => idx !== index);
+    }
+
+    clear() {
+        this.#list = this.#list.filter(item => item.completed === false);
     }
 
     get list() {

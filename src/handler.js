@@ -68,7 +68,7 @@ class HandlerFunctions {
                     this.#data.list.forEach(task => {
                     this.generateTask(task);
                     });
-                }, 500);
+                }, 300);
             }
             else {
                 this.#itemList.innerHTML = '';
@@ -107,13 +107,11 @@ class HandlerFunctions {
 
     handleRemoveTask(event) {
         const items = Array.from(event.currentTarget.parentElement.parentElement.children);
-        console.log(items);
-        console.log(this.#data.list)
         const item = event.currentTarget.parentElement;
-        console.log(item);
+        
         item.classList.add('animation-remove');
+        
         const index = items.indexOf(item);
-        console.log(index);
 
         this.#data.remove(index);
         this.#storage.save(this.#data.list);

@@ -24,9 +24,13 @@ class HandlerFunctions {
         description.innerText = task.description;
         description.classList.add('text');
 
+        const removeButton = this.#input.removeButton();
+
+        removeButton.addEventListener('click', (e) => this.handleRemoveTask(e));
+
         todoItem.appendChild(description);
+        todoItem.appendChild(removeButton);
         this.#itemList.appendChild(todoItem);
-        this.#itemList.appendChild(this.#input.removeButton);
     }
 
     updateTasks() {
@@ -39,17 +43,20 @@ class HandlerFunctions {
             });
         }
         else {
-            const message = document.createElement('p');
+            const emptyListMessage = document.createElement('div');
+            emptyListMessage.classList.add('animation-add');
+
+            const message = document.createElement('span');
             message.classList.add('empty-text');
             message.innerText = 'No tasks have been added';
-            this.#itemList.appendChild(message);
+            
+            emptyListMessage.appendChild(message);
+            this.#itemList.appendChild(emptyListMessage);
        }
     }
 
     handleTextInput(event) {
         const text = event.currentTarget;
-
-        console.log(text.value);
 
         if (event.key === 'Enter') {            
             if (text.value.length > 0) {
@@ -63,23 +70,27 @@ class HandlerFunctions {
                 this.#data.add(newItem);
                 this.#storage.save(this.#data.list);
                 this.updateTasks();
-                console.log(this.#data.list);
             }
         }
     }
 
-    // #handleRemoveTask(event) {
-        // const items = Array.from(event.currentTarget.parentElement.parentElement.children);
-        // const item = event.currentTarget.parentElement;
-        // item.classList.add('animation-remove');
-        // const index = items.indexOf(item);
-// 
-        // this.#removeHandler.removeItem(index, this.#storage, this.#data);
-        // setTimeout(() => {
-            // this.#list.updateTasks();
-        // }, 500);
-        // console.log(index);
-    // }
+    handleRemoveTask(event) {
+        const items = Array.from(event.currentTarget.parentElement.parentElement.children);
+        console.log(items);
+        console.log(this.#data.list)
+        const item = event.currentTarget.parentElement;
+        console.log(item);
+        item.classList.add('animation-remove');
+        const index = items.indexOf(item);
+        console.log(index);
+
+        this.#data.remove(index);
+        this.#storage.save(this.#data.list);
+
+        setTimeout(() => {
+            this.updateTasks();
+        }, 500);
+    }
 }
 
 export default HandlerFunctions;

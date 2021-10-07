@@ -6,7 +6,7 @@ class DataManager {
     }
 
     add(item) {
-        this.#list.push(item);
+        this.#list.unshift(item);
     }
 
     remove(idx) {

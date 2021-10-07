@@ -19,7 +19,7 @@ class InputManager {
         return this.#clear;
     }
 
-    get removeButton() {
+    removeButton() {
         const remove = document.createElement('button');
         remove.type = 'button';
         remove.innerText = 'remove';

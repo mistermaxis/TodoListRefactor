@@ -42,6 +42,11 @@ class HandlerFunctions {
 
         this.#storage.save(this.#data.list);
         
+        const checkBox = this.#input.checkBox();
+        checkBox.checked = task.completed;
+
+        checkBox.addEventListener('change', (e) => this.handleCheckboxChange(e));
+
         const description = document.createElement('span');
         description.innerText = task.description;
         description.classList.add('text');
@@ -50,6 +55,7 @@ class HandlerFunctions {
 
         removeButton.addEventListener('click', (e) => this.handleRemoveTask(e));
 
+        todoItem.appendChild(checkBox);
         todoItem.appendChild(description);
         todoItem.appendChild(removeButton);
         this.#itemList.appendChild(todoItem);
@@ -105,9 +111,22 @@ class HandlerFunctions {
         }
     }
 
+    handleCheckboxChange(event) {
+        const items = Array.from(event.currentTarget.parentElement.parentElement.children);
+        const item = event.currentTarget.parentElement;
+
+        const index = items.indexOf(item);
+
+        this.#data.setCompleted(index, event.currentTarget.checked);
+        this.#storage.save(this.#data.list);
+
+    }
+
     handleRemoveTask(event) {
         const items = Array.from(event.currentTarget.parentElement.parentElement.children);
         const item = event.currentTarget.parentElement;
+
+        console.log(event.currentTarget.checked);
         
         item.classList.add('animation-remove');
         

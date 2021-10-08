@@ -17,6 +17,10 @@ class DataManager {
         this.#list = this.#list.filter(item => item.completed === false);
     }
 
+    setCompleted(index, completed) {
+        this.#list[index].completed = completed;
+    }
+
     get list() {
         return this.#list;
     }

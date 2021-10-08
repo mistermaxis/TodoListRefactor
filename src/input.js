@@ -21,6 +21,13 @@ class InputManager {
         return this.#clear;
     }
 
+    checkBox() {
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+
+        return checkbox;
+    }
+
     removeButton() {
         const remove = document.createElement('button');
         remove.type = 'button';

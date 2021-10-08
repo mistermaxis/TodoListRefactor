@@ -23,6 +23,7 @@ class HandlerFunctions {
         this.#empty.appendChild(message);
         
         this.#input.addInput.addEventListener('keyup', (e) => this.handleTextInput(e));
+        this.#input.clearButton.addEventListener('click', () => this.handleClearAll());
     }
 
     generateTask(task) {
@@ -43,6 +44,7 @@ class HandlerFunctions {
         this.#storage.save(this.#data.list);
         
         const checkBox = this.#input.checkBox();
+        checkBox.classList.add('checkbox');
         checkBox.checked = task.completed;
 
         checkBox.addEventListener('change', (e) => this.handleCheckboxChange(e));
@@ -105,7 +107,7 @@ class HandlerFunctions {
                 text.value = '';
 
                 this.#data.add(newItem);
-                this.#storage.save(this.#data.list);
+                //this.#storage.save(this.#data.list);
                 this.updateTasks();
             }
         }
@@ -133,11 +135,27 @@ class HandlerFunctions {
         const index = items.indexOf(item);
 
         this.#data.remove(index);
-        this.#storage.save(this.#data.list);
+        //this.#storage.save(this.#data.list);
 
         setTimeout(() => {
             this.updateTasks();
         }, 500);
+    }
+
+    handleClearAll() {
+        this.#data.clear();
+        const items = this.#itemList.querySelectorAll('input.checkbox');
+
+        items.forEach(item => {
+            if (item.checked === true) {
+                item.parentElement.classList.add('animation-remove');
+            }
+        })
+
+        //this.#storage.save(this.#data.list);
+        setTimeout(() => {
+            this.updateTasks();
+        }, 250);
     }
 }
 

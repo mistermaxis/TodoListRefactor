@@ -44,12 +44,12 @@ class HandlerFunctions {
         this.#storage.save(this.#data.list);
         
         const checkBox = this.#input.checkBox();
-        checkBox.classList.add('checkbox');
         checkBox.checked = task.completed;
 
         checkBox.addEventListener('change', (e) => this.handleCheckboxChange(e));
 
         const description = document.createElement('span');
+        description.classList.add('description');
         description.innerText = task.description;
         description.classList.add('text');
 
@@ -72,6 +72,7 @@ class HandlerFunctions {
                 this.#empty.classList.add('animation-remove');
 
                 setTimeout(() => {
+                    this.#itemList.classList.remove('center');
                     this.#itemList.innerHTML = '';
                     this.#data.list.forEach(task => {
                     this.generateTask(task);
@@ -87,6 +88,7 @@ class HandlerFunctions {
         }
         else {
             this.#itemList.innerHTML = '';
+            this.#itemList.classList.add('center');
             this.#empty.classList.remove('animation-remove');
             this.#empty.classList.add('animation-add');
             this.#itemList.appendChild(this.#empty);
@@ -107,7 +109,6 @@ class HandlerFunctions {
                 text.value = '';
 
                 this.#data.add(newItem);
-                //this.#storage.save(this.#data.list);
                 this.updateTasks();
             }
         }

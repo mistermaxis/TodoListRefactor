@@ -24,6 +24,7 @@ class InputManager {
     checkBox() {
         const checkbox = document.createElement('input');
         checkbox.type = 'checkbox';
+        checkbox.classList.add('checkbox');
 
         return checkbox;
     }

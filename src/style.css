@@ -16,13 +16,28 @@ body {
 .item-list {
   height: 100%;
   overflow-y: auto;
-  padding: 1rem 0;
+  padding: 1rem;
+}
+
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .item {
   display: flex;
   align-items: center;
   height: 4rem;
+}
+
+.checkbox {
+  margin: 0;
+}
+
+.description {
+  flex: 2;
+  padding: 1rem;
 }
 
 .clear-button {
